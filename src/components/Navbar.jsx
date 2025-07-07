@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "/it-logo.svg";
 import axios from "axios";
 import { ChevronDown } from "lucide-react";
-//gourav
+
 const BACKEND_URL = "https://it-marketing-backend.onrender.com";
 
 export default function Navbar() {

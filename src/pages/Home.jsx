@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Typed from "typed.js";
 import AOS from "aos";
 import "aos/dist/aos.css";
-//gourav
+
 import heroImage from "../assets/hero-illustration.svg";
 import BrandSlider from "../components/BrandSlider";
 import WhyChooseUs from "../components/WhyChooseUs";

@@ -67,15 +67,15 @@ export default function Footer() {
       <div className="relative z-10 mt-10 text-center text-sm text-gray-500">
         <p>&copy; {new Date().getFullYear()} ITMarketing. All rights reserved.</p>
 
-        {/* <p className="mt-1 text-purple-400 font-semibold transition duration-300 hover:scale-105 hover:text-pink-400">
+        <p className="mt-1 text-purple-400 font-semibold transition duration-300 hover:scale-105 hover:text-pink-400">
           Created with <span className="animate-pulse text-red-500">❤️</span> by{" "}
           <a
-            href="#"
+            href="https://www.linkedin.com/in/gourav-tandan-2174a927a/?originalSubdomain=in"
             className="underline decoration-transparent hover:decoration-pink-500 hover:text-white transition-all duration-300"
           >
             Gourav Tandan
           </a>
-        </p> */}
+        </p>
       </div>
     </footer>
   );

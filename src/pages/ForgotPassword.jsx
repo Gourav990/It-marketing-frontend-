@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../api/auth'; // ✅ axios instance with correct baseURL
 import { Mail } from 'lucide-react';
-//gourav
+
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -16,10 +16,11 @@ export default function ForgotPassword() {
     setDisableButton(true);
 
     try {
-      const response = await axios.post('/forgot-password', { email }); // ✅ full URL handled via baseURL
+      const response = await axios.post('/forgot-password', { email });
       setMessage(response.data.message);
       setStatus('sent');
 
+      // Optional: Reset button after 30 seconds
       setTimeout(() => {
         setStatus('idle');
         setDisableButton(false);
@@ -34,6 +35,7 @@ export default function ForgotPassword() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-300 via-purple-300 to-pink-300 px-4 py-20">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 backdrop-blur-md relative overflow-hidden">
+        {/* floating blur bubbles */}
         <div className="absolute -top-16 -left-16 w-40 h-40 bg-pink-400 rounded-full filter blur-3xl opacity-30 animate-pulse z-0" />
         <div className="absolute -bottom-16 -right-16 w-40 h-40 bg-purple-400 rounded-full filter blur-3xl opacity-30 animate-pulse z-0" />
 
