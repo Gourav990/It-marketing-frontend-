@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import Typed from "typed.js";
 import AOS from "aos";
 import "aos/dist/aos.css";
-
+//gourav
 import heroImage from "../assets/hero-illustration.svg";
 import BrandSlider from "../components/BrandSlider";
-
-
 import WhyChooseUs from "../components/WhyChooseUs";
 import OurWork from "../components/OurWork";
 import Testimonials from "../components/Testimonials";
@@ -45,6 +43,7 @@ export default function Home() {
     <>
       {/* Hero Section */}
       <div className="relative overflow-hidden min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-purple-100 py-16 px-4 sm:px-6 lg:px-8">
+        {/* Background Blobs */}
         <div className="absolute w-[300px] h-[300px] bg-purple-300 opacity-40 rounded-full top-[-80px] left-[-80px] animate-blob blur-3xl"></div>
         <div className="absolute w-[200px] h-[200px] bg-pink-300 opacity-30 rounded-full top-[60%] right-[-100px] animate-blob animation-delay-2000 blur-3xl"></div>
         <div className="absolute w-[200px] h-[200px] bg-blue-300 opacity-30 rounded-full bottom-[-80px] left-[40%] animate-blob animation-delay-4000 blur-3xl"></div>
@@ -52,7 +51,10 @@ export default function Home() {
           <canvas id="particle-canvas" className="w-full h-full"></canvas>
         </div>
 
+        {/* Hero Content */}
         <div className="relative z-10 max-w-7xl flex flex-col-reverse lg:flex-row items-center justify-between w-full gap-12">
+          
+          {/* Text Section */}
           <div className="w-full lg:w-1/2 space-y-6 text-center lg:text-left" data-aos="fade-up">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-900">
               🎯 We Craft <span className="text-purple-600">Digital Campaigns</span><br />
@@ -69,17 +71,20 @@ export default function Home() {
             </Link>
           </div>
 
+          {/* Hero Image + Floating Icons */}
           <div className="w-full lg:w-1/2 flex justify-center relative" data-aos="fade-left">
             <img
               src={heroImage}
               alt="Digital Marketing Illustration"
-              className="w-64 sm:w-72 md:w-96 lg:w-[450px] animate-float z-10"
+              className="w-48 sm:w-64 md:w-80 lg:w-[450px] animate-float z-10"
             />
-            <FaChartLine className="text-green-600 text-2xl sm:text-3xl absolute top-0 left-[60%] animate-float-slow hidden sm:block" />
-            <FaRobot className="text-blue-500 text-2xl sm:text-3xl absolute top-[40%] left-[-20px] animate-float-slow2 hidden sm:block" />
-            <FaBullhorn className="text-pink-500 text-2xl sm:text-3xl absolute bottom-[-10px] right-[40%] animate-float-slow3 hidden sm:block" />
-            <FaUsers className="text-yellow-500 text-2xl sm:text-3xl absolute bottom-[50px] right-[-20px] animate-float-slow hidden sm:block" />
-            <FaMobileAlt className="text-blue-700 text-2xl sm:text-3xl absolute top-[30%] right-[-10px] animate-float-slow2 hidden sm:block" />
+
+            {/* Floating Icons - Responsive Positions */}
+            <FaChartLine className="text-green-600 text-xl sm:text-2xl md:text-3xl absolute top-[5%] left-[58%] md:left-[63%] lg:left-[68%] animate-float-slow" />
+            <FaRobot className="text-blue-500 text-xl sm:text-2xl md:text-3xl absolute top-[36%] left-[4%] md:left-[3%] lg:left-[2%] animate-float-slow2" />
+            <FaBullhorn className="text-pink-500 text-xl sm:text-2xl md:text-3xl absolute bottom-[4%] right-[38%] md:right-[42%] lg:right-[44%] animate-float-slow3" />
+            <FaUsers className="text-yellow-500 text-xl sm:text-2xl md:text-3xl absolute bottom-[14%] right-[6%] md:right-[4%] lg:right-[2%] animate-float-slow" />
+            <FaMobileAlt className="text-blue-700 text-xl sm:text-2xl md:text-3xl absolute top-[26%] right-[9%] md:right-[6%] lg:right-[5%] animate-float-slow2" />
           </div>
         </div>
       </div>

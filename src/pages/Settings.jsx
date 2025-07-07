@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-
+// gourav
 export default function Settings() {
   const navigate = useNavigate();
 
@@ -18,7 +18,8 @@ export default function Settings() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get("/api/me", { withCredentials: true })
+    axios
+      .get("/api/me", { withCredentials: true })
       .then((res) => {
         const user = res.data.user;
         setUserId(user._id);
@@ -28,7 +29,10 @@ export default function Settings() {
         setInitialName(user.name);
         setInitialCompany(user.company || "");
       })
-      .catch(() => toast.error("Failed to load user"));
+      .catch((err) => {
+        console.error(err);
+        toast.error("Failed to load user");
+      });
   }, []);
 
   const hasChanges = () =>
@@ -59,10 +63,9 @@ export default function Settings() {
       );
 
       toast.success("Profile updated successfully");
-      // 👇 Navigate instead of reload, so toast shows
       setTimeout(() => navigate("/profile"), 1000);
-      
-    } catch {
+    } catch (err) {
+      console.error(err);
       toast.error("Failed to update profile");
     } finally {
       setLoading(false);
@@ -70,12 +73,13 @@ export default function Settings() {
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete your account?")) return;
+    if (!window.confirm("Are you sure you want to delete your account?")) return;
     try {
       await axios.delete(`/api/users/${userId}`, { withCredentials: true });
       toast.success("Account deleted");
       navigate("/");
-    } catch {
+    } catch (err) {
+      console.error(err);
       toast.error("Failed to delete account");
     }
   };
@@ -86,6 +90,7 @@ export default function Settings() {
         <h2 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-violet-600 via-pink-500 to-rose-500 text-center mb-8">
           Account Settings
         </h2>
+
         <form onSubmit={handleUpdate} className="space-y-6">
           <div>
             <label className="block text-sm font-medium mb-1">Full Name</label>
@@ -97,6 +102,7 @@ export default function Settings() {
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium mb-1">Email</label>
             <input
@@ -106,6 +112,7 @@ export default function Settings() {
               className="w-full px-4 py-2 border bg-gray-100 text-gray-400 rounded-lg"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium mb-1">Company</label>
             <input
@@ -115,6 +122,7 @@ export default function Settings() {
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium mb-1">Current Password</label>
             <input
@@ -125,6 +133,7 @@ export default function Settings() {
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
+
           <div>
             <label className="block text-sm font-medium mb-1">
               New Password <span className="text-gray-500">(optional)</span>
@@ -137,6 +146,7 @@ export default function Settings() {
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
+
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
@@ -149,6 +159,7 @@ export default function Settings() {
             >
               {loading ? "Updating..." : "Update Profile"}
             </button>
+
             <button
               type="button"
               onClick={handleDelete}

@@ -1,52 +1,51 @@
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-import { X } from "lucide-react"
-import axios from "axios";
-
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { X } from "lucide-react";
+import axios from "../api/auth"; // ✅ use correct axios instance
+//gourav
 export default function Register() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
-  const [showTerms, setShowTerms] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
-  const navigate = useNavigate()
+  const onSubmit = async (data) => {
+    if (data.password !== data.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
 
-const onSubmit = async (data) => {
-  if (data.password !== data.confirmPassword) {
-    toast.error("Passwords do not match");
-    return;
-  }
+    if (!data.terms) {
+      toast.error("Please agree to Terms & Conditions");
+      return;
+    }
 
-  if (!data.terms) {
-    toast.error("Please agree to Terms & Conditions");
-    return;
-  }
+    try {
+      const response = await axios.post("/api/register", {
+        name: data.name,
+        company: data.company,
+        email: data.email,
+        password: data.password,
+      });
 
-  try {
-    const response = await axios.post("/api/register", {
-      name: data.name,
-      company: data.company,
-      email: data.email,
-      password: data.password,
-    });
-
-    toast.success(response.data.message);
-    navigate("/login");
-    window.scrollTo(0, 0);
-  } catch (error) {
-    toast.error(
-      error.response?.data?.message || "Something went wrong during registration"
-    );
-  }
-};
+      toast.success(response.data.message);
+      navigate("/login");
+      window.scrollTo(0, 0);
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || "Something went wrong during registration"
+      );
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#e0e7ff] via-[#f3e8ff] to-[#ffe4e6] px-4 py-28 relative">
@@ -97,10 +96,7 @@ const onSubmit = async (data) => {
         <div className="relative">
           <label className="label">
             Password
-            <span
-              className="tooltip tooltip-top text-sm ml-1 cursor-pointer"
-              data-tip="Min 6 characters, 1 uppercase, 1 lowercase, 1 number, 1 special"
-            >
+            <span className="tooltip tooltip-top text-sm ml-1 cursor-pointer" data-tip="Min 6 characters, 1 uppercase, 1 lowercase, 1 number, 1 special">
               ⓘ
             </span>
           </label>
@@ -146,27 +142,26 @@ const onSubmit = async (data) => {
           )}
         </div>
 
-       <div className="flex items-start gap-2">
-      <input
-       id="terms"
-       type="checkbox"
-        {...register("terms", { required: true })}
-      className="checkbox checkbox-sm mt-1"
-     />
-    <label htmlFor="terms" className="text-sm text-gray-700 cursor-pointer">
-      I agree to the{" "}
-       <span
-       className="text-primary underline"
-        onClick={(e) => {
-          e.stopPropagation(); // prevent toggling checkbox
-          setShowTerms(true);  // open modal
-        }}
-      >
-        Terms & Conditions
-       </span>
-        </label>
-      </div>
-
+        <div className="flex items-start gap-2">
+          <input
+            id="terms"
+            type="checkbox"
+            {...register("terms", { required: true })}
+            className="checkbox checkbox-sm mt-1"
+          />
+          <label htmlFor="terms" className="text-sm text-gray-700 cursor-pointer">
+            I agree to the{" "}
+            <span
+              className="text-primary underline"
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowTerms(true);
+              }}
+            >
+              Terms & Conditions
+            </span>
+          </label>
+        </div>
         {errors.terms && <p className="text-red-500 text-sm">You must accept the terms</p>}
 
         <button type="submit" className="btn btn-primary w-full text-white text-base">
@@ -174,7 +169,7 @@ const onSubmit = async (data) => {
         </button>
       </form>
 
-      {/* Modal with blurred background */}
+      {/* Terms Modal */}
       {showTerms && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-[90%] max-w-xl shadow-xl animate-fadeIn relative">
@@ -199,5 +194,5 @@ const onSubmit = async (data) => {
         </div>
       )}
     </div>
-  )
+  );
 }

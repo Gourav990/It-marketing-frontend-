@@ -1,11 +1,11 @@
 // src/pages/Login.jsx
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Eye, EyeOff } from "lucide-react";
-
+import axios from "../api/auth"; // ✅ use configured axios instance
+//gourav
 export default function Login() {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const navigate = useNavigate();
@@ -18,64 +18,25 @@ export default function Login() {
     }
   }, [setValue]);
 
-
-//   try {
-//     const response = await axios.post(
-//       "/api/login",
-//       {
-//         email: data.email,
-//         password: data.password,
-//       },
-//       {
-//         withCredentials: true,
-//       }
-//     );
-
-//     toast.success(response.data.message);
-
-//     // ✅ Save user info in localStorage
-//     localStorage.setItem("isLoggedIn", "true");
-//     localStorage.setItem("userName", response.data.user.name);
-
-//     // ✅ Optional: save token
-//     // localStorage.setItem("token", response.data.token);
-
-//     // ✅ Navigate and reload so navbar updates
-//     navigate("/");
-//     window.location.reload();
-
-//   } catch (error) {
-//     toast.error(error.response?.data?.message || "Invalid email or password");
-//   }
-// };
-
   const onSubmit = async (data) => {
-  try {
-    const response = await axios.post(
-      "/api/login",
-      {
+    try {
+      const response = await axios.post("/api/login", {
         email: data.email,
         password: data.password,
-      },
-      {
-        withCredentials: true, // ✅ Keep this
-      }
-    );
+      });
 
-    toast.success(response.data.message);
+      toast.success(response.data.message);
 
-    // ✅ ONLY store userName for UI (not login status)
-    localStorage.setItem("userName", response.data.user.name);
+      // ✅ Optional: store login status
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userName", response.data.user.name);
 
-    // ✅ Redirect and refresh to trigger auth check
-    navigate("/");
-    window.location.reload();
-
-  } catch (error) {
-    toast.error(error.response?.data?.message || "Login failed");
-  }
-};
-
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Login failed");
+    }
+  };
 
   const handleForgotPassword = () => {
     navigate("/forgot-password");

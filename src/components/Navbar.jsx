@@ -3,6 +3,8 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "/it-logo.svg";
 import axios from "axios";
 import { ChevronDown } from "lucide-react";
+//gourav
+const BACKEND_URL = "https://it-marketing-backend.onrender.com";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ export default function Navbar() {
 
   useEffect(() => {
     axios
-      .get("/api/me", { withCredentials: true })
+      .get(`${BACKEND_URL}/api/me`, { withCredentials: true })
       .then((res) => {
         const user = res.data.user;
         setUserName(user.name);
@@ -41,7 +43,7 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = async () => {
-    await axios.post("/api/logout", {}, { withCredentials: true });
+    await axios.post(`${BACKEND_URL}/api/logout`, {}, { withCredentials: true });
     navigate("/");
     window.location.reload();
   };
