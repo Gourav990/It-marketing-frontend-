@@ -1,5 +1,4 @@
 // src/pages/Login.jsx
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";

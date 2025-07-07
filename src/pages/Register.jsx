@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { X } from "lucide-react"
-import axios from "axios";
 import axios from "../api/auth"; // ✅ use correct axios instance
 
 export default function Register() {
